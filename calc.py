@@ -1,5 +1,21 @@
 import numpy as np
 
+def add_log_returns(dataframe, column='Close', periods=1):
+    """
+    指定された期間の対数差分を計算し、新たな列として追加する関数
+
+    :param df: 対数差分を計算する元のpandas.DataFrame
+    :param column: 対数差分を計算する対象の列名（デフォルトは 'Close'）
+    :param periods: 対数差分を計算する期間（デフォルトは 1）
+    :return: 対数差分が追加されたDataFrame
+    """
+    # 対数差分の計算
+    log_return = np.log(dataframe[column] / dataframe[column].shift(periods))
+
+    return log_return
+
+
+
 # 短期および長期の単純移動平均 (SMA) を計算する関数
 def calculate_sma(dataframe, column, window):
     return dataframe[column].rolling(window=window).mean()
